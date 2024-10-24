@@ -76,7 +76,7 @@ class MainWindow(QMainWindow):
 
     def predict(self):
         grid = self.drawing_widget.get_grid()
-        img = np.array(grid).reshape(1, 784).astype("float32") / 255
+        img = np.array(grid).reshape(1, 28, 28, 1).astype("float32") / 255
         prediction = self.model.predict(img)
 
         max_probability_index = np.argmax(prediction)
