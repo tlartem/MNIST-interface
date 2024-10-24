@@ -45,20 +45,16 @@ class PixelArtWidget(QWidget):
         x = event.x() // self.pixel_size
         y = event.y() // self.pixel_size
 
-        # Тут уже chatGPT крутил, все равно не понятно как кисть сделать такую же
         if 0 <= x < self.grid_size and 0 <= y < self.grid_size:
             for dy in range(-1, 2):
                 for dx in range(-1, 2):
-                    if 0 <= x + dx < self.grid_size and 0 <= y + dy < self.grid_size:
-                        gray_value = 255 - (event.y() % self.pixel_size) * (
-                            255 // self.pixel_size
-                        )
+                    new_x, new_y = x + dx, y + dy
+                    if 0 <= new_x < self.grid_size and 0 <= new_y < self.grid_size:
+                        gray_value = 255 - (event.y() % self.pixel_size) * (255 // self.pixel_size)
                         if dx == 0 and dy == 0:
-                            self.grid[y][x] = gray_value
+                            self.grid[new_y][new_x] = gray_value
                         else:
-                            self.grid[y + dy][x + dx] = min(
-                                255, self.grid[y + dy][x + dx] + 50
-                            )
+                            self.grid[new_y][new_x] = min(255, self.grid[new_y][new_x] + 50)
             self.update()
 
     def get_grid(self):
