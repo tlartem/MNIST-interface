@@ -1,0 +1,6 @@
+**/.venv
+*.pyc
+*.keras
+*.h5
+*.pth
+*.pt
