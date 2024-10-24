@@ -13,6 +13,11 @@
    ```
    pip install -r requirements.txt
    ```
+2. Модель обучите
+   ```
+   python fit_model.py
+   ```
+ 
 2. Запустите приложение, выполнив команду:
    ```
    python main.py
