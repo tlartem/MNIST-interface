@@ -1,5 +1,7 @@
 import logging
 import sys
+import os
+import subprocess
 
 import numpy as np
 from PyQt5.QtCore import QTimer
@@ -18,7 +20,10 @@ from widget import PixelArtWidget
 
 TIME_INTERVAL = 200  # Интервал прогонки через модель
 
-model = keras.models.load_model("my_model.keras")
+# Функция загрузки модели перемещена сюда
+def load_model():
+    return keras.models.load_model("my_model.keras")
+
 
 
 class MainWindow(QMainWindow):
@@ -78,6 +83,13 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == "__main__":
+    if not os.path.exists("my_model.keras"):
+        print("Модель не найдена. Запуск fit_model.py для создания модели...")
+        subprocess.run([sys.executable, "fit_model.py"])
+        print("Модель создана.")
+
+    model = load_model()
+    
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
